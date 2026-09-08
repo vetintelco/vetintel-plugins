@@ -1,0 +1,6 @@
+{
+  "environment": "staging",
+  "version": "0.1.0",
+  "mcpUrl": "https://api.staging.vetintelcompany.com/v0/mcp",
+  "displayName": "Veterinary Intelligence (Test)"
+}

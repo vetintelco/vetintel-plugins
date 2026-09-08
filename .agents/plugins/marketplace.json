@@ -1,0 +1,20 @@
+{
+  "name": "vetintel-internal",
+  "interface": {
+    "displayName": "Veterinary Intelligence — Internal"
+  },
+  "plugins": [
+    {
+      "name": "vetintel",
+      "source": {
+        "source": "local",
+        "path": "./plugins/vetintel"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

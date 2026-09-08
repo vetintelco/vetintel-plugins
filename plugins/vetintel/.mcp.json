@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "vetintel": {
+      "url": "https://api.staging.vetintelcompany.com/v0/mcp"
+    }
+  }
+}

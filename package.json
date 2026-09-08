@@ -1,0 +1,6 @@
+{
+  "name": "vetintel-internal-marketplace",
+  "private": true,
+  "type": "module",
+  "scripts": { "check": "bun scripts/validate.ts", "test": "bun test" }
+}
