@@ -1,19 +1,18 @@
 # Internal production installation
 
-Release 0.2.0 is **Production · Read-only**. Publish only after the application release, production
-readiness and fresh OAuth checks pass. Only VetIntel's approved production pilot organization is enabled.
+Release 0.2.0 on `main` is **Production · Read-only**. Only **Vetintel Admin Organization** is
+authorized for the production pilot. A public marketplace does not enable customer access.
 
 ## Prerequisites
 
-- Read access to this private repository; no application-repository access is needed.
-- An authenticated Git installation that can clone this repository. Never put a GitHub token in a URL.
+- A Git installation that can clone this public repository; no GitHub access grant or application-repository access is needed.
+- Never put a GitHub token or API credential in a URL.
 - A current Codex client, an approved production account, and membership in the enabled pilot organization.
 - An OpenAI account approved for company information. Returned data is handled under that account's settings.
 
-## ChatGPT desktop and Codex — private marketplace
+## ChatGPT desktop and Codex — public marketplace, internal data access
 
-These are post-publication instructions. Do not install from `main` until it contains version
-**0.2.0** with the production endpoint. A prepared PR is not a published package.
+Verify the installed package is version **0.2.0** with the production endpoint.
 
 Register the marketplace once:
 
