@@ -5,14 +5,18 @@ Private integration packaging for The Veterinary Intelligence Company. This repo
 ## Rollout status
 
 This branch prepares production 0.2.0. **Do not merge or distribute it before production readiness
-and fresh OAuth checks pass.** The application release must merge through its normal reviewed
-release PR after a completed Render production database backup. Production access stays restricted
-to VetIntel's approved pilot organization.
+and fresh OAuth checks pass.** Production access stays restricted to **Vetintel Admin Organization**.
+Application release #476 was merged, but its API deployment failed during migration 0145; merging
+the application PR alone does not satisfy this package's publication gate. See [current gates](PROMOTION.md).
 
 Once released, follow [installation instructions](INSTALL.md). Maintainers follow
 [staging acceptance and production promotion](PROMOTION.md). The stable marketplace name is
 `vetintel-internal`; the plugin is `vetintel`. Release 0.2.0 changes the endpoint to production and
 requires fresh consent; it does not migrate staging connections automatically.
+
+Installation covers ChatGPT desktop/Codex, optional ChatGPT workspace marketplace import, and a
+separate ChatGPT web connection. The `.mcp.json` marketplace package is desktop-only; a local
+installation must not be presented as an account-wide ChatGPT web connector.
 
 An administrator grants read access to this repository. GitHub access does not grant access to
 company data: every user must separately sign in to an approved Veterinary Intelligence Company

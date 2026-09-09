@@ -10,7 +10,10 @@ readiness and fresh OAuth checks pass. Only VetIntel's approved production pilot
 - A current Codex client, an approved production account, and membership in the enabled pilot organization.
 - An OpenAI account approved for company information. Returned data is handled under that account's settings.
 
-## Codex
+## ChatGPT desktop and Codex — private marketplace
+
+These are post-publication instructions. Do not install from `main` until it contains version
+**0.2.0** with the production endpoint. A prepared PR is not a published package.
 
 Register the marketplace once:
 
@@ -18,11 +21,14 @@ Register the marketplace once:
 codex plugin marketplace add vetintelco/vetintel-plugins --ref main
 ```
 
-Open [Install Veterinary Intelligence](codex://plugins/install/vetintel?marketplace=vetintel-internal).
-The link requires marketplace registration first. Alternatively open Plugins in Codex desktop,
-or enter `/plugins` in Codex CLI. Choose **Veterinary Intelligence — Internal**, then install
-**Veterinary Intelligence**. Approve installation, sign in, choose the eligible production
-organization, and approve the requested read permissions. Start a new session and request a list
+Restart the ChatGPT desktop app, then open **Plugins** and select the **Veterinary Intelligence —
+Internal** marketplace. Install **Veterinary Intelligence**, version **0.2.0**, labeled
+**Production · Read-only**. Alternatively, use
+[Install Veterinary Intelligence](codex://plugins/install/vetintel?marketplace=vetintel-internal)
+after registration, or enter `/plugins` in Codex CLI.
+
+Sign in with your own approved production account, choose **Vetintel Admin Organization**, and
+approve the requested read permissions. Start a new session and request a list
 of available saved reports. Explicitly select the plugin (`$vetintel` in the tested CLI) to avoid
 confusing it with unrelated local MCP aliases. Confirm its endpoint is
 `https://api.vetintelcompany.com/v0/mcp` before querying.
@@ -30,7 +36,26 @@ confusing it with unrelated local MCP aliases. Confirm its endpoint is
 No `codex mcp add`, API key, or DCR override should be necessary. If registration or sign-in fails,
 report the client version and sanitized error to the operator; never paste tokens or authorization URLs.
 
-## ChatGPT (separate connection)
+This repo-backed MCP package is for desktop use; registering it locally does not install a connector
+into ChatGPT web or other users' accounts. See the official
+[marketplace setup guide](https://developers.openai.com/plugins/build/plugins).
+
+## Shared ChatGPT workspace marketplace
+
+For workspaces with marketplace-import controls, a workspace administrator:
+
+1. Opens **Admin → Plugins → Add → Import marketplace**.
+2. Sets Source to `https://github.com/vetintelco/vetintel-plugins`, leaves Path empty, and selects
+   branch `main`. Do not enter the manifest filename in Path.
+3. Authorizes GitHub read access, checks the import results, and configures member availability
+   and authentication on install. GitHub import does not apply this repository's policy settings.
+4. Members install from their workspace's Plugins tab and complete their own production OAuth.
+
+Use **Sync now** for subsequent approved updates. Because this package contains `.mcp.json`,
+the imported plugin is **Desktop only**, including its remote HTTPS tools. For ChatGPT web use the
+separate connection below. See [workspace import documentation](https://learn.chatgpt.com/docs/enterprise/plugin-management).
+
+## ChatGPT web — separate MCP connection
 
 Your account must allow developer mode. In Settings → Security and login, enable Developer mode.
 Open Plugins, select the plus button, name the connection **Veterinary Intelligence (Production)**,
@@ -41,8 +66,9 @@ https://api.vetintelcompany.com/v0/mcp
 ```
 
 Review the discovered tools, sign in, choose your production organization, and approve access. Start a
-new conversation with the connector selected. Codex marketplace installation does not distribute
-or synchronize this connector across personal ChatGPT accounts.
+new conversation with the connector selected. Select **Vetintel Admin Organization** during consent.
+Local marketplace installation does not distribute or synchronize this connection across personal
+ChatGPT accounts. See [official connection instructions](https://developers.openai.com/plugins/deploy/connect-chatgpt).
 
 ## Eight read-only tools
 

@@ -11,7 +11,20 @@
 - [ ] All seven tools, refresh, restart, live revocation, isolation, limits, and usage pass.
 - [ ] 48-hour staging pilot evidence recorded; no unresolved security or data-correctness failures.
 
-## 0.2.0 — Production (blocked until backup, release, and focused acceptance pass)
+## 0.2.0 — Production (publication blocked until deployment and focused acceptance pass)
+
+### Latest operator evidence — 2026-09-09
+
+- Application #475 merged to staging as `47cddf3314cc26605795917cf435285968b3f0f2`.
+- Release #476 merged to main as `2ad0b96f7944ed53566eca3b024681abea9bc535`, with exact-head human
+  approval and green release checks. Ben explicitly waived a fresh backup for this release only;
+  this does not remove backup requirements for later releases.
+- Web, Mastra and worker deployed that SHA. The API deploy failed in its pre-deploy migration
+  step; migration 0145 was blocked on a graph-worker transaction. The previous API remains live.
+- The production API MCP switch remains disabled. Fresh production plugin OAuth and eight-tool
+  acceptance have not passed. Keep this packaging PR unpublished until recovery and acceptance.
+- The configured pilot organization is **Vetintel Admin Organization**. Each user needs their
+  own approved account and live membership; do not copy a staging token or share an API key.
 
 Ben approved an accelerated VetIntel-only pilot on 2026-09-09 UTC. Focused staging OAuth,
 refresh/restart, revocation, isolation, eight-tool discovery and Radar/MCP parity replace the
@@ -20,7 +33,8 @@ Retain two-member production verification and 48-hour production observation.
 
 Application release requires a fresh completed Render-managed export of the verified production
 database (dpg-dadoeu740ujc73cbl5g0-a / vetintel_production_v2), verified PITR, green release checks
-and human approval. No production database exports or signed download URLs belong in this repo.
+and human approval unless explicitly waived for a particular release as recorded above.
+No production database exports or signed download URLs belong in this repo.
 Follow the application runbook at plans/drafts/mcp-platform-and-metering/phases/02c-production-promotion.md.
 
 Promote application code via staging and its normal rolling release PR to main. Keep production
@@ -40,6 +54,8 @@ https://www.vetintelcompany.com/api/auth. Never copy staging credentials, grants
 - [ ] Two approved production members complete fresh OAuth and representative reads.
 - [ ] Reviewed marketplace promotion passes CI and is merged/released.
 - [ ] Users refresh the marketplace, update/reinstall, restart, and reconnect to production.
+- [ ] Desktop setup verifies 0.2.0 and the production URL; workspace import is separately checked
+      if used. Do not claim this `.mcp.json` package supports ChatGPT web.
 - [ ] ChatGPT users verify a new production connector before removing staging.
 - [ ] Superseded staging pilot grants revoked without touching unrelated connections.
 - [ ] All eight tools and refresh pass in production, followed by a 48-hour observation period.
