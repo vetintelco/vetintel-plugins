@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "vetintel": {
+      "type": "http",
+      "url": "https://api.vetintelcompany.com/v0/mcp"
+    }
+  }
+}

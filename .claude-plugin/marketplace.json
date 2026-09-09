@@ -1,0 +1,12 @@
+{
+  "name": "vetintel-internal",
+  "description": "Read-only veterinary intelligence for approved internal members.",
+  "owner": { "name": "The Veterinary Intelligence Company" },
+  "plugins": [
+    {
+      "name": "vetintel",
+      "source": "./claude/plugins/vetintel",
+      "description": "Production · Read-only veterinary intelligence for approved internal members."
+    }
+  ]
+}

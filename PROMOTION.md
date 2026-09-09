@@ -1,5 +1,46 @@
 # Release gates
 
+## 0.3.0 — Claude support and mandatory reconnect (candidate)
+
+Do not merge/publish this candidate before the application changes are reviewed, deployed and
+validated. Public packaging remains admin-only data access, not a customer launch.
+
+- [ ] App PR lands in staging with green auth/API/MCP/browser/quality checks.
+- [ ] Staging API/web use the exact `/v0/mcp` resource; issuer unchanged. CIMD/default registration,
+  PKCE, hosted and local callbacks, fresh OAuth, refresh/restart and all eight tools pass in actual
+  Claude Code and Claude web/Desktop/Cowork, plus reconnected Codex/ChatGPT.
+- [ ] Same independent-practice count and filters in Radar, direct API, Codex and Claude.
+- [ ] Scope/isolation, denied customer organizations, revocation, suspension, membership removal,
+  kill switches, old-audience refresh rejection, byte limits and usage attribution pass.
+- [ ] Normal release to main: required checks, human approval and fresh Render backup gate.
+- [ ] Coordinate a brief MCP interruption while deploying/configuring API and web together.
+  Keep production enabled only for Vetintel Admin Organization after readiness checks.
+- [ ] Fresh production OAuth and bounded reads pass using the unpublished candidate.
+- [ ] Review and merge this package, release 0.3.0, and notify existing users to refresh,
+  update/reinstall and complete new OAuth. Old `/v0` access and refresh tokens are not compatible.
+- [ ] Two approved members pass fresh consent, all eight tools, refresh after expiry and restart.
+- [ ] Revoke only superseded pilot grants; retain unrelated connections and audit history.
+- [ ] 48-hour production observation completes with sanitized evidence and no unresolved failures.
+
+No migration, rebuild, new service, API key distribution or Anthropic API credential is required.
+If checks fail, leave this package unpublished. Disable affected MCP access for rollback; never
+silently switch clients back to staging or reintroduce the old audience.
+
+### Package validation
+
+Run `bun run check` and `bun test`. CI additionally runs pinned official Claude Code 2.1.266:
+
+```bash
+bunx @anthropic-ai/claude-code@2.1.266 plugin validate . --strict
+bunx @anthropic-ai/claude-code@2.1.266 plugin validate ./claude/plugins/vetintel --strict
+```
+
+Validate the Codex package with the Codex plugin validator before review. No installed user
+connections are needed to run these package checks. They do not prove hosted OAuth installation.
+
+The sections below retain historical 0.1/0.2 release decisions; their old OAuth audience is not
+the 0.3.0 configuration. Record current evidence here without secrets or customer response bodies.
+
 ## 0.1.0 — Staging
 
 - [ ] Application PR #449 retargeted to staging before deleting the base branch.

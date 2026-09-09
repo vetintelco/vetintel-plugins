@@ -1,6 +1,8 @@
 # Internal production installation
 
-Release 0.2.0 on `main` is **Production · Read-only**. Only **Vetintel Admin Organization** is
+Release 0.3.0 is a candidate until its coordinated server deployment and marketplace publication.
+The instructions below apply after the operator confirms readiness. It is **Production · Read-only**.
+Only **Vetintel Admin Organization** is
 authorized for the production pilot. A public marketplace does not enable customer access.
 
 ## Prerequisites
@@ -12,7 +14,7 @@ authorized for the production pilot. A public marketplace does not enable custom
 
 ## ChatGPT desktop and Codex — public marketplace, internal data access
 
-Verify the installed package is version **0.2.0** with the production endpoint.
+Verify the installed package is version **0.3.0** with the production endpoint.
 
 Register the marketplace once:
 
@@ -21,7 +23,7 @@ codex plugin marketplace add vetintelco/vetintel-plugins --ref main
 ```
 
 Restart the ChatGPT desktop app, then open **Plugins** and select the **Veterinary Intelligence —
-Internal** marketplace. Install **Veterinary Intelligence**, version **0.2.0**, labeled
+Internal** marketplace. Install **Veterinary Intelligence**, version **0.3.0**, labeled
 **Production · Read-only**. Alternatively, use
 [Install Veterinary Intelligence](codex://plugins/install/vetintel?marketplace=vetintel-internal)
 after registration, or enter `/plugins` in Codex CLI.
@@ -69,6 +71,54 @@ new conversation with the connector selected. Select **Vetintel Admin Organizati
 Local marketplace installation does not distribute or synchronize this connection across personal
 ChatGPT accounts. See [official connection instructions](https://developers.openai.com/plugins/deploy/connect-chatgpt).
 
+## Claude Code
+
+Use a current Claude Code client and an Anthropic account approved for company information.
+Run these commands **inside Claude Code**:
+
+```text
+/plugin marketplace add vetintelco/vetintel-plugins
+/plugin install vetintel@vetintel-internal
+/reload-plugins
+/mcp
+```
+
+Select the vetintel server in `/mcp` and authenticate. Your browser opens the Veterinary
+Intelligence Company sign-in/consent flow. Select **Vetintel Admin Organization**, review permissions,
+and approve. The callback returns to your local app; approve only a connection you started.
+After Claude confirms connection, close the browser tab, start a new conversation and discover
+the eight tools. Check the endpoint below. Do not use a DCR override, shared key, or Anthropic API key.
+
+## Claude web, Desktop, and Cowork — individual accounts
+
+1. Open **Customize → Plugins → Personal plugins (+) → Add marketplace → Add from repository**.
+2. Enter `vetintelco/vetintel-plugins` (or its public GitHub URL), review the source, and add it.
+3. Install **vetintel**, version **0.3.0**. Connect the MCP using your own approved account.
+4. Select **Vetintel Admin Organization**, approve read scopes, and start a new conversation
+   with the plugin/connector enabled. Verify all eight tools and the production endpoint.
+
+If your client does not expose personal marketplaces, use **Customize → Connectors → Add custom
+connector** instead. Name it Veterinary Intelligence, select OAuth, and enter:
+
+```text
+https://api.vetintelcompany.com/v0/mcp
+```
+
+Complete the same consent flow. This URL must match the OAuth resource exactly, including `/v0/mcp`.
+Use one path per client to avoid duplicate tools. Claude chat connectors may also appear in Claude
+Code; check `/mcp` before adding another manual connection. Installation is per user, not account-wide
+authorization across different people. Returned data is handled under the chosen Anthropic account's
+settings; only approved accounts may receive company information.
+
+For **Team/Enterprise**, an owner adds the connector in **Organization settings → Connectors** first;
+members then connect individually. Workspace marketplace management is a separate owner-controlled
+workflow, not the initial individual-account acceptance path. Do not enable customer organizations.
+
+Official guidance: [personal plugins](https://support.claude.com/en/articles/13837440-use-plugins-in-claude),
+[custom connectors](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp),
+[Claude Code marketplaces](https://code.claude.com/docs/en/plugin-marketplaces),
+[OAuth compatibility](https://claude.com/docs/connectors/building/authentication).
+
 ## Eight read-only tools
 
 | Tool | Capability |
@@ -86,8 +136,10 @@ ChatGPT accounts. See [official connection instructions](https://developers.open
 
 Run `codex plugin marketplace upgrade vetintel-internal`, review the release notes, and use the
 plugin browser to update/reinstall if needed. Start a new session and confirm the advertised environment.
-Do not assume cached plugin packages update automatically. Version 0.2.0 requires fresh production
-OAuth consent; tokens and grants from the staging 0.1.0 pilot cannot be transferred. Verify a new
+Do not assume cached plugin packages update automatically. Version 0.3.0 requires fresh production
+OAuth consent for **all existing production and staging connections**. The old `/v0` resource is
+no longer accepted; its access/refresh tokens cannot be reused. Remove the obsolete connection
+and add it again if the client caches its old resource/registration. Verify a new
 production connection before disconnecting the old staging one. Operators revoke only superseded
 pilot grants after successful migration; unrelated local and staging connections stay untouched.
 
@@ -96,7 +148,11 @@ server grant. Removing GitHub access or uninstalling the package alone does not 
 Remove the plugin through its browser separately. After a staging reset, repeat connection setup
 with fresh consent. Preserve unrelated local connections.
 
-The production OAuth resource is `https://api.vetintelcompany.com/v0`; its issuer is
+Claude Code users refresh with `/plugin marketplace update vetintel-internal`, update/reinstall
+vetintel through `/plugin`, run `/reload-plugins`, and authenticate in `/mcp`. Claude chat users
+disconnect/reconnect the connector and start a new conversation. Never paste tokens between clients.
+
+The production OAuth resource is `https://api.vetintelcompany.com/v0/mcp`; its issuer is
 `https://www.vetintelcompany.com/api/auth`. Staging 0.1.0 at
 `https://api.staging.vetintelcompany.com/v0/mcp` is historical/testing configuration, not a fallback.
 See [promotion gates](PROMOTION.md).
