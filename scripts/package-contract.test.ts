@@ -9,7 +9,10 @@ const input = {
 };
 test("the reviewed package satisfies the contract", () => expect(() => validatePackage(input)).not.toThrow());
 test("cross-environment URLs, credentials, local servers, hooks and app references are rejected", () => {
-  for (const url of ["http://localhost:3000/v0/mcp", "https://api.vetintelcompany.com/v0/mcp", "https://other.example/mcp"]) {
+  const otherEnvironmentUrl = input.release.environment === "production"
+    ? "https://api.staging.vetintelcompany.com/v0/mcp"
+    : "https://api.vetintelcompany.com/v0/mcp";
+  for (const url of ["http://localhost:3000/v0/mcp", otherEnvironmentUrl, "https://other.example/mcp"]) {
     expect(() => validatePackage({ ...input, mcp: { mcpServers: { vetintel: { url } } } })).toThrow();
   }
   for (const addition of [{ headers: { authorization: "Bearer secret" } }, { command: "shell" }]) {
@@ -19,8 +22,21 @@ test("cross-environment URLs, credentials, local servers, hooks and app referenc
     expect(() => validatePackage({ ...input, manifest: { ...input.manifest, ...addition } })).toThrow();
   }
 });
-test("production promotion requires a consistent release, manifest and endpoint", () => {
-  expect(() => validatePackage({ ...input, release: { ...input.release, environment: "production" } })).toThrow();
+test("both environments require a consistent release, manifest and endpoint", () => {
+  for (const [environment, version, mcpUrl, displayName] of [
+    ["staging", "0.1.0", "https://api.staging.vetintelcompany.com/v0/mcp", "Veterinary Intelligence (Test)"],
+    ["production", "0.2.0", "https://api.vetintelcompany.com/v0/mcp", "Veterinary Intelligence"],
+  ]) {
+    const consistent = {
+      ...input,
+      release: { environment, version, mcpUrl, displayName },
+      manifest: { ...input.manifest, version, interface: { ...input.manifest.interface, displayName } },
+      mcp: { mcpServers: { vetintel: { url: mcpUrl } } },
+    };
+    expect(() => validatePackage(consistent)).not.toThrow();
+    expect(() => validatePackage({ ...consistent, release: { ...consistent.release, version: "9.9.9" } })).toThrow();
+    expect(() => validatePackage({ ...consistent, mcp: { mcpServers: { vetintel: { url: "https://other.example/mcp" } } } })).toThrow();
+  }
 });
 test("credential detector rejects key material and accepts ordinary installation copy", () => {
   expect(() => assertNoSecrets(`vi_live_${"x".repeat(64)}`)).toThrow();

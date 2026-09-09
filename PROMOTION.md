@@ -11,7 +11,17 @@
 - [ ] All seven tools, refresh, restart, live revocation, isolation, limits, and usage pass.
 - [ ] 48-hour staging pilot evidence recorded; no unresolved security or data-correctness failures.
 
-## 0.2.0 — Production (blocked until the staging gate passes)
+## 0.2.0 — Production (blocked until backup, release, and focused acceptance pass)
+
+Ben approved an accelerated VetIntel-only pilot on 2026-09-09 UTC. Focused staging OAuth,
+refresh/restart, revocation, isolation, eight-tool discovery and Radar/MCP parity replace the
+pre-production 48-hour staging soak. Broader hosted-client acceptance is not marked complete.
+Retain two-member production verification and 48-hour production observation.
+
+Application release requires a fresh completed Render-managed export of the verified production
+database (dpg-dadoeu740ujc73cbl5g0-a / vetintel_production_v2), verified PITR, green release checks
+and human approval. No production database exports or signed download URLs belong in this repo.
+Follow the application runbook at plans/drafts/mcp-platform-and-metering/phases/02c-production-promotion.md.
 
 Promote application code via staging and its normal rolling release PR to main. Keep production
 MCP disabled until readiness is verified. Enable only the resolved VetIntel production organization.
@@ -32,7 +42,9 @@ https://www.vetintelcompany.com/api/auth. Never copy staging credentials, grants
 - [ ] Users refresh the marketplace, update/reinstall, restart, and reconnect to production.
 - [ ] ChatGPT users verify a new production connector before removing staging.
 - [ ] Superseded staging pilot grants revoked without touching unrelated connections.
-- [ ] All seven tools and refresh pass in production, followed by a 48-hour observation period.
+- [ ] All eight tools and refresh pass in production, followed by a 48-hour observation period.
+- [ ] Production Radar and installed Codex MCP independently return matching counts and filters
+      for independent practices; do not assume production has staging's 22,585 count.
 
 ## Rollback
 
