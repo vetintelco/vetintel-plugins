@@ -1,15 +1,15 @@
 {
   "name": "vetintel",
-  "version": "0.1.0",
-  "description": "Read-only veterinary industry intelligence, entitled datasets, and saved reports. Internal staging pilot.",
+  "version": "0.2.0",
+  "description": "Read-only veterinary industry intelligence, entitled datasets, and saved reports. Internal production pilot.",
   "author": {
     "name": "The Veterinary Intelligence Company"
   },
   "repository": "https://github.com/vetintelco/vetintel-plugins",
   "interface": {
-    "displayName": "Veterinary Intelligence (Test)",
-    "shortDescription": "Read-only staging intelligence",
-    "longDescription": "Explore veterinary industry entities, source-backed facts and relationships, entitled datasets, and saved reports. Internal staging pilot only. Sign in with your own approved account and select an enabled organization. Data is sent to your chosen OpenAI account. No writes or review tools are included.",
+    "displayName": "Veterinary Intelligence",
+    "shortDescription": "Production · Read-only intelligence",
+    "longDescription": "Explore veterinary industry entities, source-backed facts and relationships, entitled datasets, ontology definitions, and saved reports. Internal production pilot only. Sign in with your own approved production account and select an enabled organization. Data is sent to your chosen OpenAI account. No writes or review tools are included.",
     "developerName": "The Veterinary Intelligence Company",
     "category": "Productivity",
     "capabilities": ["Read"],
