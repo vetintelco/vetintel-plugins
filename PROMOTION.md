@@ -11,7 +11,7 @@
 - [ ] All seven tools, refresh, restart, live revocation, isolation, limits, and usage pass.
 - [ ] 48-hour staging pilot evidence recorded; no unresolved security or data-correctness failures.
 
-## 0.2.0 — Production (publication blocked until deployment and focused acceptance pass)
+## 0.2.0 — Production internal pilot
 
 ### Latest operator evidence — 2026-09-09
 
@@ -19,10 +19,13 @@
 - Release #476 merged to main as `2ad0b96f7944ed53566eca3b024681abea9bc535`, with exact-head human
   approval and green release checks. Ben explicitly waived a fresh backup for this release only;
   this does not remove backup requirements for later releases.
-- Web, Mastra and worker deployed that SHA. The API deploy failed in its pre-deploy migration
-  step; migration 0145 was blocked on a graph-worker transaction. The previous API remains live.
-- The production API MCP switch remains disabled. Fresh production plugin OAuth and eight-tool
-  acceptance have not passed. Keep this packaging PR unpublished until recovery and acceptance.
+- Web, Mastra, worker and API deployed that SHA. The initial API migration lock blockage was
+  recovered; migration 0145 completed through normal pre-deploy. No database replacement,
+  graph backfill, or projection rebuild was required.
+- The user explicitly authorized publishing the marketplace and enabling production MCP only for
+  **Vetintel Admin Organization**. Package 0.2.0 is merged; the repository is now public, with
+  GitHub secret scanning and push protection enabled. Publication does not complete the remaining
+  OAuth, eight-tool, two-member, parity, or observation acceptance gates below.
 - The configured pilot organization is **Vetintel Admin Organization**. Each user needs their
   own approved account and live membership; do not copy a staging token or share an API key.
 
@@ -52,7 +55,7 @@ https://www.vetintelcompany.com/api/auth. Never copy staging credentials, grants
 
 - [ ] Production API/web readiness, exact origins, and pilot-only allowlist verified.
 - [ ] Two approved production members complete fresh OAuth and representative reads.
-- [ ] Reviewed marketplace promotion passes CI and is merged/released.
+- [x] Reviewed marketplace promotion passes CI and is merged/released.
 - [ ] Users refresh the marketplace, update/reinstall, restart, and reconnect to production.
 - [ ] Desktop setup verifies 0.2.0 and the production URL; workspace import is separately checked
       if used. Do not claim this `.mcp.json` package supports ChatGPT web.
