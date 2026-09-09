@@ -1,0 +1,10 @@
+{
+  "name": "vetintel",
+  "displayName": "Veterinary Intelligence",
+  "version": "0.3.0",
+  "description": "Production · Read-only veterinary intelligence. Access requires an approved member of Vetintel Admin Organization; public installation does not grant customer access.",
+  "author": { "name": "The Veterinary Intelligence Company" },
+  "homepage": "https://www.vetintelcompany.com",
+  "repository": "https://github.com/vetintelco/vetintel-plugins",
+  "mcpServers": "./.mcp.json"
+}

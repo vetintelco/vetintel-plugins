@@ -4,18 +4,25 @@ Public integration packaging for The Veterinary Intelligence Company. This repos
 
 ## Rollout status
 
-Production package **0.2.0** is published on `main`. Production access stays restricted to
+This branch prepares **0.3.0** with Claude support; it must not be merged/published until the
+coordinated server release and fresh OAuth smoke tests pass. **0.2.0** is the prior published
+release. Production access stays restricted to
 **Vetintel Admin Organization**; customer organizations are not enabled. The application deployment
 has recovered. Full hosted-client acceptance remains tracked in [current gates](PROMOTION.md).
 
 Follow [installation instructions](INSTALL.md). Maintainers follow
 [staging acceptance and production promotion](PROMOTION.md). The stable marketplace name is
-`vetintel-internal`; the plugin is `vetintel`. Release 0.2.0 changes the endpoint to production and
-requires fresh consent; it does not migrate staging connections automatically.
+`vetintel-internal`; the plugin is `vetintel`. Release 0.3.0 changes the OAuth resource to the exact
+MCP endpoint and requires fresh consent from existing production users, not just staging users.
 
 Installation covers ChatGPT desktop/Codex, optional ChatGPT workspace marketplace import, and a
 separate ChatGPT web connection. The `.mcp.json` marketplace package is desktop-only; a local
 installation must not be presented as an account-wide ChatGPT web connector.
+
+Claude has its own root `.claude-plugin/marketplace.json` catalog and packaging under
+`claude/plugins/vetintel`; Codex keeps `.agents/plugins/marketplace.json` and `plugins/vetintel`.
+Both use the same HTTPS MCP and eight read-only tools. Claude Code and personal Claude
+web/Desktop/Cowork setup is described in [INSTALL.md](INSTALL.md). No Anthropic API key is needed.
 
 This repository can be cloned publicly, without a GitHub access grant. Public package access does not grant access to
 company data: every user must separately sign in to an approved Veterinary Intelligence Company

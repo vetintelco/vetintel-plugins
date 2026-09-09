@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 
 const environments = {
   staging: { version: "0.1.0", mcpUrl: "https://api.staging.vetintelcompany.com/v0/mcp", displayName: "Veterinary Intelligence (Test)" },
-  production: { version: "0.2.0", mcpUrl: "https://api.vetintelcompany.com/v0/mcp", displayName: "Veterinary Intelligence" },
+  production: { version: "0.3.0", mcpUrl: "https://api.vetintelcompany.com/v0/mcp", displayName: "Veterinary Intelligence" },
 } as const;
 
 const record = (value: unknown): Record<string, unknown> => {

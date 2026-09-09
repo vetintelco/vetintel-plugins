@@ -25,7 +25,7 @@ test("cross-environment URLs, credentials, local servers, hooks and app referenc
 test("both environments require a consistent release, manifest and endpoint", () => {
   for (const [environment, version, mcpUrl, displayName] of [
     ["staging", "0.1.0", "https://api.staging.vetintelcompany.com/v0/mcp", "Veterinary Intelligence (Test)"],
-    ["production", "0.2.0", "https://api.vetintelcompany.com/v0/mcp", "Veterinary Intelligence"],
+    ["production", "0.3.0", "https://api.vetintelcompany.com/v0/mcp", "Veterinary Intelligence"],
   ]) {
     const consistent = {
       ...input,
